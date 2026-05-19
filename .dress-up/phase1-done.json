@@ -1,0 +1,6 @@
+{
+  "stage": 3,
+  "completed_at": "2026-05-18",
+  "scope_file": ".dress-up/phase1-scope.md",
+  "summary": "Hover+tree only; cut overlay and inline expand; enriched hover with key pills and gradient; row controls pin/delete/reorder; empty/assemble, modals, lock pack guardrails; slim overview"
+}

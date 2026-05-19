@@ -1,0 +1,744 @@
+{
+  "ran_at": "2026-05-19T00:00:55.572Z",
+  "ds_root": "/Users/adarshnellore/Documents/section-source-pack-dressup-2026-05-18",
+  "cache_key": "6e9c42f39eb84966",
+  "primitives": {
+    "ui": [
+      {
+        "name": "Accordion",
+        "file": "src/components/ui/Accordion.tsx",
+        "props_name": "AccordionProps",
+        "props_body": "items: AccordionItem[];\n  /** \"single\" = only one open at a time (radio-style); \"multi\" = independent toggles. */\n  mode?: \"single\" | \"multi\";\n  /** IDs of items that start open. */\n  defaultOpen?: string[];\n  className?: string;",
+        "enum_fields": {
+          "mode": [
+            "single",
+            "multi"
+          ]
+        }
+      },
+      {
+        "name": "Alert",
+        "file": "src/components/ui/Alert.tsx",
+        "props_name": "AlertProps",
+        "props_body": "tone?: AlertTone;\n  title?: ReactNode;\n  body?: ReactNode;\n  children?: ReactNode;\n  action?: ReactNode;\n  onDismiss?: () => void;\n  compact?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Avatar",
+        "file": "src/components/ui/Avatar.tsx",
+        "props_name": "AvatarProps",
+        "props_body": "initials?: string;\n  src?: string;\n  alt?: string;\n  size?: AvatarSize;\n  variant?: AvatarVariant;\n  ring?: boolean;\n  children?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Badge",
+        "file": "src/components/ui/Badge.tsx",
+        "props_name": "BadgeProps",
+        "props_body": "children: ReactNode;\n  tone?: BadgeTone;\n  size?: BadgeSize;\n  uppercase?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Banner",
+        "file": "src/components/ui/Banner.tsx",
+        "props_name": "BannerProps",
+        "props_body": "tone: BannerTone;\n  title: ReactNode;\n  body?: ReactNode;\n  onDismiss?: () => void;\n  /** Optional trailing action button (typically <Button variant=\"secondary\" size=\"sm\">). */\n  action?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Button",
+        "file": "src/components/ui/Button.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Caption",
+        "file": "src/components/ui/Caption.tsx",
+        "props_name": "CaptionProps",
+        "props_body": "children: ReactNode;\n  size?: CaptionSize;\n  tone?: CaptionTone;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Card",
+        "file": "src/components/ui/Card.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Checkbox",
+        "file": "src/components/ui/Checkbox.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Dot",
+        "file": "src/components/ui/Dot.tsx",
+        "props_name": "DotProps",
+        "props_body": "color?: DotColor;\n  size?: DotSize;\n  pulse?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "DropdownMenu",
+        "file": "src/components/ui/DropdownMenu.tsx",
+        "props_name": "DropdownMenuProps",
+        "props_body": "trigger: ReactNode;\n  sections: DropdownMenuSection[];\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  align?: \"start\" | \"end\";\n  className?: string;",
+        "enum_fields": {
+          "align": [
+            "start",
+            "end"
+          ]
+        }
+      },
+      {
+        "name": "EmptyState",
+        "file": "src/components/ui/EmptyState.tsx",
+        "props_name": "EmptyStateProps",
+        "props_body": "icon?: ReactNode;\n  title: ReactNode;\n  body?: ReactNode;\n  action?: ReactNode;\n  variant?: EmptyStateVariant;\n  iconTint?: \"neutral\" | \"coral\";\n  className?: string;",
+        "enum_fields": {
+          "iconTint": [
+            "neutral",
+            "coral"
+          ]
+        }
+      },
+      {
+        "name": "FormField",
+        "file": "src/components/ui/FormField.tsx",
+        "props_name": "FormFieldProps",
+        "props_body": "label?: ReactNode;\n  /** The control element — typically <Input>, <Select>, <Textarea>, or <Checkbox>. */\n  children: ReactNode;\n  /** Optional helper text below the control. */\n  hint?: ReactNode;\n  /** Error message — replaces hint when present and sets the field's tone to danger. */\n  error?: ReactNode;\n  /** Show \"required\" indicator next to the label. */\n  required?: boolean;\n  /** htmlFor binding; passed to the inner label element. */\n  htmlFor?: string;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Glyph",
+        "file": "src/components/ui/Glyph.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Hairline",
+        "file": "src/components/ui/Hairline.tsx",
+        "props_name": "HairlineProps",
+        "props_body": "orientation?: HairlineOrientation;\n  style?: HairlineStyle;\n  label?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "IconButton",
+        "file": "src/components/ui/IconButton.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Input",
+        "file": "src/components/ui/Input.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "KeyChip",
+        "file": "src/components/ui/KeyChip.tsx",
+        "props_name": "KeyChipProps",
+        "props_body": "children?: ReactNode;\n  /** Convenience: pass an array of keys to render a joined group. */\n  keys?: ReactNode[];\n  size?: KeyChipSize;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "MetaLabel",
+        "file": "src/components/ui/MetaLabel.tsx",
+        "props_name": "MetaLabelProps",
+        "props_body": "children: ReactNode;\n  tone?: MetaLabelTone;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "MetaText",
+        "file": "src/components/ui/MetaText.tsx",
+        "props_name": "MetaTextProps",
+        "props_body": "children: ReactNode;\n  tone?: MetaTextTone;\n  size?: MetaTextSize;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Modal",
+        "file": "src/components/ui/Modal.tsx",
+        "props_name": "ModalProps",
+        "props_body": "open: boolean;\n  title?: ReactNode;\n  description?: ReactNode;\n  size?: ModalSize;\n  onClose?: () => void;\n  footer?: ReactNode;\n  children?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Pagination",
+        "file": "src/components/ui/Pagination.tsx",
+        "props_name": "PaginationProps",
+        "props_body": "current: number;       // 1-indexed\n  total: number;         // total pages\n  onPageChange?: (page: number) => void;\n  /** Hide page numbers, show only prev/next buttons. */\n  compact?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "PeerBrand",
+        "file": "src/components/ui/PeerBrand.tsx",
+        "props_name": "PeerBrandProps",
+        "props_body": "size?: PeerBrandSize;\n  /** Hide the wordmark, show only the rings. */\n  markOnly?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Pill",
+        "file": "src/components/ui/Pill.tsx",
+        "props_name": "PillProps",
+        "props_body": "children?: ReactNode;\n  variant?: PillVariant;\n  size?: PillSize;\n  leadingIcon?: ReactNode;\n  trailingIcon?: ReactNode;\n  onClick?: MouseEventHandler<HTMLButtonElement>;\n  disabled?: boolean;\n  className?: string;\n  /** Render as a non-interactive span instead of a button. */\n  asStatic?: boolean;",
+        "enum_fields": {}
+      },
+      {
+        "name": "ProgressBar",
+        "file": "src/components/ui/ProgressBar.tsx",
+        "props_name": "ProgressBarProps",
+        "props_body": "value: number;\n  tone?: ProgressBarTone;\n  /** Show percentage label to the right. */\n  showValue?: boolean;\n  /** Optional title above the bar. */\n  label?: ReactNode;\n  /** Bar height: thin (1.5px) or normal (4px). */\n  size?: \"thin\" | \"default\";\n  className?: string;",
+        "enum_fields": {
+          "size": [
+            "thin",
+            "default"
+          ]
+        }
+      },
+      {
+        "name": "ProgressDots",
+        "file": "src/components/ui/ProgressDots.tsx",
+        "props_name": "ProgressDotsProps",
+        "props_body": "total: number;\n  current: number; // 1-indexed\n  connector?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Radio",
+        "file": "src/components/ui/Radio.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Row",
+        "file": "src/components/ui/Row.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "SearchInput",
+        "file": "src/components/ui/SearchInput.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Select",
+        "file": "src/components/ui/Select.tsx",
+        "props_name": "SelectProps",
+        "props_body": "options: SelectOption[];\n  value?: string;\n  onChange?: (value: string) => void;\n  placeholder?: string;\n  disabled?: boolean;\n  invalid?: boolean;\n  leading?: ReactNode;\n  name?: string;\n  id?: string;\n  className?: string;\n  containerClassName?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Skeleton",
+        "file": "src/components/ui/Skeleton.tsx",
+        "props_name": "SkeletonProps",
+        "props_body": "variant?: SkeletonVariant;\n  width?: number | string;\n  height?: number | string;\n  /** Render N stacked text lines for variant=\"text\". */\n  lines?: number;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Slider",
+        "file": "src/components/ui/Slider.tsx",
+        "props_name": "SliderProps",
+        "props_body": "value: number;\n  onChange?: (value: number) => void;\n  min?: number;\n  max?: number;\n  step?: number;\n  showValue?: boolean;\n  label?: ReactNode;\n  className?: string;\n  disabled?: boolean;\n  /** Accessible label; required if no visible label. */\n  \"aria-label\"?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Spinner",
+        "file": "src/components/ui/Spinner.tsx",
+        "props_name": "SpinnerProps",
+        "props_body": "size?: SpinnerSize;\n  tone?: SpinnerTone;\n  /** Accessible label for screen readers (defaults to \"Loading\"). */\n  label?: string;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Stat",
+        "file": "src/components/ui/Stat.tsx",
+        "props_name": "StatProps",
+        "props_body": "label: ReactNode;\n  value: ReactNode;\n  unit?: ReactNode;\n  delta?: StatDelta;\n  sparkline?: ReactNode;\n  variant?: \"card\" | \"soft\" | \"bare\";\n  className?: string;",
+        "enum_fields": {
+          "variant": [
+            "card",
+            "soft",
+            "bare"
+          ]
+        }
+      },
+      {
+        "name": "Stepper",
+        "file": "src/components/ui/Stepper.tsx",
+        "props_name": "StepperProps",
+        "props_body": "steps: Step[];\n  /** Index of the current step (0-indexed). */\n  current: number;\n  orientation?: StepperOrientation;\n  /** Callback when a step is clicked (only enabled for completed steps). */\n  onStepClick?: (index: number) => void;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Switch",
+        "file": "src/components/ui/Switch.tsx",
+        "props_name": "SwitchProps",
+        "props_body": "checked: boolean;\n  onChange?: (checked: boolean) => void;\n  size?: SwitchSize;\n  disabled?: boolean;\n  /** Optional inline label; if you need a fuller form layout, use <FormField>. */\n  label?: ReactNode;\n  /** Accessible label; required if no visible label. */\n  \"aria-label\"?: string;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Tab",
+        "file": "src/components/ui/Tab.tsx",
+        "props_name": "TabProps",
+        "props_body": "label: string;\n  kind?: TabKind;\n  active?: boolean;\n  dirty?: boolean;\n  onClose?: MouseEventHandler<HTMLButtonElement>;\n  onClick?: MouseEventHandler<HTMLButtonElement>;\n  className?: string;\n  children?: ReactNode;",
+        "enum_fields": {}
+      },
+      {
+        "name": "TabBar",
+        "file": "src/components/ui/TabBar.tsx",
+        "props_name": "TabBarProps",
+        "props_body": "children: ReactNode;\n  trailing?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Table",
+        "file": "src/components/ui/Table.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Tabs",
+        "file": "src/components/ui/Tabs.tsx",
+        "props_name": "TabsProps",
+        "props_body": "options: TabsOption[];\n  value: string;\n  onChange: (value: string) => void;\n  size?: TabsSize;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Tag",
+        "file": "src/components/ui/Tag.tsx",
+        "props_name": "TagProps",
+        "props_body": "children: ReactNode;\n  variant?: TagVariant;\n  size?: TagSize;\n  /** If provided, renders an × close button. */\n  onClose?: () => void;\n  /** Optional click handler for the whole tag. */\n  onClick?: () => void;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "TextLink",
+        "file": "src/components/ui/TextLink.tsx",
+        "props_name": "TextLinkProps",
+        "props_body": "children: ReactNode;\n  href?: string;\n  onClick?: () => void;\n  tone?: TextLinkTone;\n  size?: TextLinkSize;\n  /** Render with a trailing arrow-right glyph. */\n  trailingArrow?: boolean;\n  /** Open in new tab (adds target=_blank + rel). */\n  external?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Textarea",
+        "file": "src/components/ui/Textarea.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "Tile",
+        "file": "src/components/ui/Tile.tsx",
+        "props_name": "TileProps",
+        "props_body": "hero?: ReactNode;\n  label?: ReactNode;\n  value?: ReactNode;\n  body?: ReactNode;\n  trailing?: ReactNode;\n  variant?: TileVariant;\n  size?: TileSize;\n  className?: string;\n  onClick?: () => void;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Toast",
+        "file": "src/components/ui/Toast.tsx",
+        "props_name": "ToastProps",
+        "props_body": "tone?: ToastTone;\n  title: ReactNode;\n  body?: ReactNode;\n  action?: ReactNode;\n  onClose?: () => void;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Tooltip",
+        "file": "src/components/ui/Tooltip.tsx",
+        "props_name": "TooltipProps",
+        "props_body": "children: ReactNode; // trigger\n  content: ReactNode;\n  shortcut?: ReactNode[];\n  variant?: TooltipVariant;\n  placement?: TooltipPlacement;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "icons",
+        "file": "src/components/ui/icons.tsx",
+        "props_name": "IconProps",
+        "props_body": "className?: string };\n\nexport function IconX({ className = \"w-3.5 h-3.5\" }: IconProps) {\n  return (\n    <svg className={className} viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden>\n      <path d=\"M4 4l8 8M12 4L4 12\" stroke=\"currentColor\" strokeWidth=\"1.5\" strokeLinecap=\"round\" />\n    </svg>\n  );",
+        "enum_fields": {}
+      }
+    ],
+    "layout": [
+      {
+        "name": "AppShell",
+        "file": "src/components/layout/AppShell.tsx",
+        "props_name": "AppShellProps",
+        "props_body": "topBar?: ReactNode;\n  leftNav?: ReactNode;\n  rightRail?: ReactNode;\n  children?: ReactNode;\n  /** Width of the right rail in pixels. Defaults to 340 (Paper spec). */\n  rightRailWidth?: number;\n  /** Width of the left nav in pixels. Defaults to 220. */\n  leftNavWidth?: number;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Cluster",
+        "file": "src/components/layout/Cluster.tsx",
+        "props_name": "ClusterProps",
+        "props_body": "children: ReactNode;\n  gap?: ClusterGap;\n  align?: ClusterAlign;\n  justify?: ClusterJustify;\n  wrap?: boolean;\n  as?: ElementType;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "DocFrame",
+        "file": "src/components/layout/DocFrame.tsx",
+        "props_name": "DocFrameProps",
+        "props_body": "tabBar?: ReactNode;\n  children?: ReactNode;\n  bordered?: boolean;\n  /** Inner padding for the scroll area. */\n  padding?: \"none\" | \"sm\" | \"md\" | \"lg\";\n  className?: string;",
+        "enum_fields": {
+          "padding": [
+            "none",
+            "sm",
+            "md",
+            "lg"
+          ]
+        }
+      },
+      {
+        "name": "Drawer",
+        "file": "src/components/layout/Drawer.tsx",
+        "props_name": "DrawerProps",
+        "props_body": "open: boolean;\n  onClose: () => void;\n  side?: DrawerSide;\n  size?: DrawerSize;\n  /** Header content (typically a title + close button). */\n  header?: ReactNode;\n  /** Footer content (typically primary + secondary actions). */\n  footer?: ReactNode;\n  /** Drawer body. */\n  children?: ReactNode;\n  /** Optional accessible label (defaults to \"Drawer\"). */\n  \"aria-label\"?: string;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "LeftNav",
+        "file": "src/components/layout/LeftNav.tsx",
+        "props_name": "LeftNavProps",
+        "props_body": "brand?: ReactNode;\n  sections: NavSection[];\n  footer?: ReactNode;\n  collapsed?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "LinkButton",
+        "file": "src/components/layout/LinkButton.tsx",
+        "props_name": null,
+        "props_body": null,
+        "enum_fields": {}
+      },
+      {
+        "name": "PageContainer",
+        "file": "src/components/layout/PageContainer.tsx",
+        "props_name": "PageContainerProps",
+        "props_body": "size?: PageContainerSize;\n  children?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Popover",
+        "file": "src/components/layout/Popover.tsx",
+        "props_name": "PopoverProps",
+        "props_body": "/** The element that triggers the popover. */\n  trigger: ReactNode;\n  /** The popover content. */\n  children: ReactNode;\n  placement?: PopoverPlacement;\n  triggerType?: PopoverTrigger;\n  /** Show an arrow pointing at the trigger. */\n  showArrow?: boolean;\n  /** Optional accessible label. */\n  \"aria-label\"?: string;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "RightRail",
+        "file": "src/components/layout/RightRail.tsx",
+        "props_name": "RightRailProps",
+        "props_body": "header?: ReactNode;\n  footer?: ReactNode;\n  children?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "SplitFrame",
+        "file": "src/components/layout/SplitFrame.tsx",
+        "props_name": "SplitFrameProps",
+        "props_body": "left: ReactNode;\n  right: ReactNode;\n  /** Left flex weight; right is always 1. e.g. 1 = 50/50, 1.5 = 60/40. */\n  ratio?: number;\n  bordered?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Stack",
+        "file": "src/components/layout/Stack.tsx",
+        "props_name": "StackProps",
+        "props_body": "children: ReactNode;\n  gap?: StackGap;\n  align?: StackAlign;\n  justify?: StackJustify;\n  /** Render as a different element (default `div`). */\n  as?: ElementType;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "TopNav",
+        "file": "src/components/layout/TopNav.tsx",
+        "props_name": "TopNavProps",
+        "props_body": "brand?: ReactNode;\n  breadcrumb?: ReactNode;\n  trailing?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      }
+    ],
+    "patterns": [
+      {
+        "name": "ActionBar",
+        "file": "src/components/patterns/ActionBar.tsx",
+        "props_name": "ActionBarProps",
+        "props_body": "/** Primary action (usually a Button variant=\"primary\"). */\n  primary?: ReactNode;\n  /** Secondary action(s) — Button variant=\"secondary\" or \"ghost\". */\n  secondary?: ReactNode;\n  /** Left-side content (e.g. metadata, status text). */\n  leading?: ReactNode;\n  /** Layout context — controls position + chrome. */\n  variant?: ActionBarVariant;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "FilterBar",
+        "file": "src/components/patterns/FilterBar.tsx",
+        "props_name": "FilterBarProps",
+        "props_body": "/** Tabs on the left side (typically status / category filters). */\n  tabs?: FilterTab[];\n  activeTab?: string;\n  onTabChange?: (value: string) => void;\n  /** Inline search input. */\n  searchValue?: string;\n  searchPlaceholder?: string;\n  onSearchChange?: (value: string) => void;\n  /** Right-side trailing controls (sort dropdown, view toggle, etc.). */\n  trailing?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "KeyValue",
+        "file": "src/components/patterns/KeyValue.tsx",
+        "props_name": "KeyValueProps",
+        "props_body": "label: ReactNode;\n  value: ReactNode;\n  /** Optional secondary line under the value. */\n  caption?: ReactNode;\n  /** Inline (label left, value right) vs stacked (label above value). */\n  orientation?: \"inline\" | \"stacked\";\n  className?: string;",
+        "enum_fields": {
+          "orientation": [
+            "inline",
+            "stacked"
+          ]
+        }
+      },
+      {
+        "name": "PageHeader",
+        "file": "src/components/patterns/PageHeader.tsx",
+        "props_name": "PageHeaderProps",
+        "props_body": "/** Uppercase mono kicker (e.g. \"SECTION 12.4\"). */\n  kicker?: ReactNode;\n  /** Inline subtitle next to the kicker. */\n  subtitle?: ReactNode;\n  /** Default = mono MetaText; editorial = Fraunces italic Caption. */\n  subtitleVariant?: PageHeaderSubtitleVariant;\n  /** Page title. Required. */\n  title: ReactNode;\n  /** Title size (default `h1`). */\n  titleSize?: HeadingSize;\n  /** Optional meta row beneath the title (Avatar + edit time + word-count, etc.). */\n  meta?: ReactNode;\n  /** Optional action slot rendered to the right of the title (e.g. a Button). */\n  action?: ReactNode;\n  className?: s",
+        "enum_fields": {}
+      },
+      {
+        "name": "Prose",
+        "file": "src/components/patterns/Prose.tsx",
+        "props_name": "ProseProps",
+        "props_body": "children: ReactNode;\n  variant?: ProseVariant;\n  /** Override the default gap for this variant. */\n  gap?: StackGap;\n  className?: string;",
+        "enum_fields": {}
+      }
+    ],
+    "typography": [
+      {
+        "name": "Body",
+        "file": "src/components/typography/Body.tsx",
+        "props_name": "BodyProps",
+        "props_body": "children: ReactNode;\n  size?: BodySize;\n  tone?: BodyTone;\n  /** Constrain to 65ch reading measure (default true). */\n  measured?: boolean;\n  /** Structural classes only — no font-size overrides. */\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Heading",
+        "file": "src/components/typography/Heading.tsx",
+        "props_name": "HeadingProps",
+        "props_body": "children: ReactNode;\n  size?: HeadingSize;\n  tone?: HeadingTone;\n  /** Structural classes only — no font-size overrides. */\n  className?: string;\n  /** Optional id for in-page anchors. */\n  id?: string;",
+        "enum_fields": {}
+      }
+    ],
+    "charts": [
+      {
+        "name": "BarChart",
+        "file": "src/components/charts/BarChart.tsx",
+        "props_name": "BarChartProps",
+        "props_body": "series: BarSeries[];\n  categories: string[];\n  orientation?: BarOrientation;\n  yMax?: number;\n  showLegend?: boolean;\n  width?: number;\n  height?: number;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "DonutChart",
+        "file": "src/components/charts/DonutChart.tsx",
+        "props_name": "DonutChartProps",
+        "props_body": "segments: DonutSegment[];\n  /** Center label (e.g. \"73%\" or \"n=847\"). */\n  centerLabel?: ReactNode;\n  /** Caption below the center label (e.g. \"compliant\"). */\n  centerCaption?: ReactNode;\n  /** Show a legend column to the right. Default true. */\n  showLegend?: boolean;\n  /** SVG width/height. Default 240. */\n  size?: number;\n  /** Stroke width of the ring. Default 24. */\n  strokeWidth?: number;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "LineChart",
+        "file": "src/components/charts/LineChart.tsx",
+        "props_name": "LineChartProps",
+        "props_body": "series: LineSeries[];\n  /** X-axis labels. Length should match series[i].values.length. */\n  xLabels?: string[];\n  /** Y-axis min/max; if omitted, derived from data. */\n  yMin?: number;\n  yMax?: number;\n  /** Number of horizontal grid lines (default 5). */\n  gridLines?: number;\n  /** Show legend below chart. Default true. */\n  showLegend?: boolean;\n  /** Show data point dots on series[0] only. Default true. */\n  showDots?: boolean;\n  width?: number;\n  height?: number;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "Sparkline",
+        "file": "src/components/charts/Sparkline.tsx",
+        "props_name": "SparklineProps",
+        "props_body": "values: number[];\n  width?: number;\n  height?: number;\n  tone?: SparklineTone;\n  area?: boolean;\n  dashed?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      }
+    ],
+    "agent": [
+      {
+        "name": "AcceptRejectBar",
+        "file": "src/components/agent/AcceptRejectBar.tsx",
+        "props_name": "AcceptRejectBarProps",
+        "props_body": "variant?: AcceptRejectBarVariant;\n  iteration?: { current: number; total: number };\n  label?: ReactNode;\n  onAccept?: () => void;\n  onReject?: () => void;\n  onRegenerate?: () => void;\n  acceptLabel?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "AgentAvatar",
+        "file": "src/components/agent/AgentAvatar.tsx",
+        "props_name": "AgentAvatarProps",
+        "props_body": "name?: string;\n  state?: AgentAvatarState;\n  size?: \"sm\" | \"md\";\n  trailingNote?: string;\n  className?: string;",
+        "enum_fields": {
+          "size": [
+            "sm",
+            "md"
+          ]
+        }
+      },
+      {
+        "name": "AgentErrorCard",
+        "file": "src/components/agent/AgentErrorCard.tsx",
+        "props_name": "AgentErrorCardProps",
+        "props_body": "tone?: AgentErrorTone;\n  title: ReactNode;\n  body?: ReactNode;\n  actions?: ReactNode;\n  icon?: GlyphName;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "CarouselCard",
+        "file": "src/components/agent/CarouselCard.tsx",
+        "props_name": "CarouselCardProps",
+        "props_body": "variants: CarouselVariant[];\n  state?: \"preparing\" | \"ready\" | \"accepted\";\n  acceptedIndex?: number;\n  preparingLabel?: ReactNode;\n  onAccept?: (index: number) => void;\n  onReject?: () => void;\n  onEdit?: () => void;\n  className?: string;",
+        "enum_fields": {
+          "state": [
+            "preparing",
+            "ready",
+            "accepted"
+          ]
+        }
+      },
+      {
+        "name": "CitationLink",
+        "file": "src/components/agent/CitationLink.tsx",
+        "props_name": "CitationLinkProps",
+        "props_body": "number: number;\n  preview?: ReactNode;\n  href?: string;\n  onClick?: () => void;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "ConfidenceBadge",
+        "file": "src/components/agent/ConfidenceBadge.tsx",
+        "props_name": "ConfidenceBadgeProps",
+        "props_body": "value: number; // 0–100\n  variant?: ConfidenceBadgeVariant;\n  tone?: ConfidenceBadgeTone;\n  showLabel?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "DiffView",
+        "file": "src/components/agent/DiffView.tsx",
+        "props_name": "DiffViewSideBySideProps",
+        "props_body": "before: ReactNode;\n  after: ReactNode;\n  label?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "HallucinationFlag",
+        "file": "src/components/agent/HallucinationFlag.tsx",
+        "props_name": "HallucinationFlagProps",
+        "props_body": "tone?: FlagTone;\n  variant?: FlagVariant;\n  label?: ReactNode;\n  title?: ReactNode;\n  body?: ReactNode;\n  actions?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "MessageBubble",
+        "file": "src/components/agent/MessageBubble.tsx",
+        "props_name": "MessageBubbleProps",
+        "props_body": "role?: MessageRole;\n  state?: MessageState;\n  author?: string;\n  timestamp?: string;\n  children?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "MultiStepFlow",
+        "file": "src/components/agent/MultiStepFlow.tsx",
+        "props_name": "MultiStepFlowProps",
+        "props_body": "total: number;\n  current: number; // 1-indexed\n  stepLabel?: ReactNode;\n  question: ReactNode;\n  options: MultiStepOption[];\n  value?: string;\n  onChange?: (value: string) => void;\n  onContinue?: () => void;\n  onBack?: () => void;\n  onSkip?: () => void;\n  continueLabel?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "PromptBar",
+        "file": "src/components/agent/PromptBar.tsx",
+        "props_name": "PromptBarProps",
+        "props_body": "value?: string;\n  onChange?: (value: string) => void;\n  onSubmit?: (value: string) => void;\n  onAttach?: () => void;\n  attachments?: PromptBarAttachment[];\n  onRemoveAttachment?: (id: string) => void;\n  placeholder?: string;\n  showShortcut?: boolean;\n  showSlashHint?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "ReasonedChip",
+        "file": "src/components/agent/ReasonedChip.tsx",
+        "props_name": "ReasonedChipProps",
+        "props_body": "label: ReactNode;\n  steps?: ReactNode[];\n  sources?: ReactNode;\n  defaultOpen?: boolean;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "ReasoningTrace",
+        "file": "src/components/agent/ReasoningTrace.tsx",
+        "props_name": "ReasoningTraceProps",
+        "props_body": "steps: ReasoningStep[];\n  defaultOpen?: boolean;\n  summary?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "SourceChip",
+        "file": "src/components/agent/SourceChip.tsx",
+        "props_name": "SourceChipProps",
+        "props_body": "kind?: SourceKind;\n  file: ReactNode;\n  pointer?: ReactNode;\n  preview?: ReactNode;\n  variant?: SourceChipVariant;\n  onClick?: MouseEventHandler<HTMLDivElement>;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "StreamingCursor",
+        "file": "src/components/agent/StreamingCursor.tsx",
+        "props_name": "StreamingCursorProps",
+        "props_body": "variant?: StreamingCursorVariant;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "SuggestionPill",
+        "file": "src/components/agent/SuggestionPill.tsx",
+        "props_name": "SuggestionPillProps",
+        "props_body": "children: ReactNode;\n  tone?: SuggestionPillTone;\n  size?: SuggestionPillSize;\n  onClick?: MouseEventHandler<HTMLButtonElement>;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "ThinkingIndicator",
+        "file": "src/components/agent/ThinkingIndicator.tsx",
+        "props_name": "ThinkingIndicatorProps",
+        "props_body": "tone?: ThinkingIndicatorTone;\n  size?: ThinkingIndicatorSize;\n  label?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      },
+      {
+        "name": "ToolCallCard",
+        "file": "src/components/agent/ToolCallCard.tsx",
+        "props_name": "ToolCallCardProps",
+        "props_body": "name: string;\n  args?: ReactNode;\n  state?: ToolCallState;\n  elapsed?: string;\n  resultSummary?: ReactNode;\n  results?: ReactNode[];\n  reason?: ReactNode;\n  className?: string;",
+        "enum_fields": {}
+      }
+    ]
+  },
+  "color_tokens": [
+    "accent",
+    "accent-indigo",
+    "accent-soft",
+    "border",
+    "border-strong",
+    "coral",
+    "coral-soft",
+    "danger",
+    "danger-soft",
+    "faint",
+    "faintest",
+    "gold",
+    "gold-soft",
+    "green",
+    "green-soft",
+    "hairline",
+    "hairline-strong",
+    "info",
+    "ink",
+    "muted",
+    "paper",
+    "pink",
+    "pink-ink",
+    "soft",
+    "stripe",
+    "success",
+    "success-soft",
+    "surface",
+    "surface-paper",
+    "surface-soft",
+    "surface-stripe",
+    "text",
+    "text-faint",
+    "text-faintest",
+    "text-muted",
+    "walkthrough-dot",
+    "walkthrough-line",
+    "warning",
+    "warning-soft"
+  ],
+  "semantic_color_tokens": {
+    "info": "info",
+    "warning": "warning-soft",
+    "success": "success-soft",
+    "danger": "danger-soft"
+  },
+  "has_semantic_colors": true,
+  "glyph_icons": null,
+  "audit_script": {
+    "exists": true,
+    "path": "scripts/audit-composition.mjs",
+    "covers_src_app": true,
+    "covers_templates_only": false,
+    "covered_globs": [
+      "src/app",
+      "src/app/components"
+    ]
+  },
+  "total_primitives": 88
+}

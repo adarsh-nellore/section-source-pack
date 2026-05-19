@@ -1,0 +1,109 @@
+{
+  "product": "Section Source Pack",
+  "chosen_direction_id": "dir-feature-tree-hybrid",
+  "chosen_direction_note": "FeatureManager tree with repo-grouped sources, search above pack, tri-sync via ?section= and ?source=, hover preview + in-doc overlay (under review for cut).",
+  "cornerstone_route": "/submissions/:submissionId/documents/:documentId",
+  "views": [
+    {
+      "id": "workspace-tree-default",
+      "path": "/submissions/:submissionId/documents/:documentId",
+      "type": "happy",
+      "label": "Feature tree: sections + repo-grouped pack",
+      "prd_sections": ["§9", "§10"]
+    },
+    {
+      "id": "source-tree-search",
+      "path": "/submissions/:submissionId/documents/:documentId",
+      "type": "happy",
+      "label": "Search above pack filters tree",
+      "prd_sections": ["§9"]
+    },
+    {
+      "id": "tri-sync-selection",
+      "path": "/submissions/:submissionId/documents/:documentId?section=&source=",
+      "type": "happy",
+      "label": "Tree + selection + citation chips synced",
+      "prd_sections": ["§8"]
+    },
+    {
+      "id": "source-hover-preview",
+      "path": "/submissions/:submissionId/documents/:documentId",
+      "type": "happy",
+      "label": "Glassy hover preview on tree rows and citations",
+      "prd_sections": ["§8", "§10"]
+    },
+    {
+      "id": "in-doc-overlay",
+      "path": "/submissions/:submissionId/documents/:documentId?source=:id",
+      "type": "happy",
+      "label": "In-doc overlay on source select (candidate CUT)",
+      "prd_sections": ["§10"]
+    },
+    {
+      "id": "pack-empty",
+      "path": "/submissions/:submissionId/documents/:documentId?state=empty",
+      "type": "empty",
+      "label": "Empty pack under tree",
+      "prd_sections": ["§21"]
+    },
+    {
+      "id": "pack-assemble-loading",
+      "path": "/submissions/:submissionId/documents/:documentId?state=assembling",
+      "type": "loading",
+      "label": "Assemble in progress",
+      "prd_sections": ["§16"]
+    },
+    {
+      "id": "pack-stale",
+      "path": "/submissions/:submissionId/documents/:documentId?section=s-safety",
+      "type": "error",
+      "label": "Stale rows in tree + banner",
+      "prd_sections": ["§21"]
+    },
+    {
+      "id": "drag-reparent-repo",
+      "path": "/submissions/:submissionId/documents/:documentId",
+      "type": "happy",
+      "label": "Drag source between repo folders",
+      "prd_sections": ["§8"]
+    },
+    {
+      "id": "move-source-section",
+      "path": "/submissions/:submissionId/documents/:documentId?modal=move-source",
+      "type": "confirm",
+      "label": "Move source to another section",
+      "prd_sections": ["§13"]
+    },
+    {
+      "id": "inherit-pack-modal",
+      "path": "/submissions/:submissionId/documents/:documentId?modal=inherit-pack",
+      "type": "confirm",
+      "label": "Inherit pack",
+      "prd_sections": ["§13"]
+    },
+    {
+      "id": "mark-curated-confirm",
+      "path": "/submissions/:submissionId/documents/:documentId?modal=mark-curated",
+      "type": "confirm",
+      "label": "Mark curated",
+      "prd_sections": ["§13"]
+    }
+  ],
+  "routes": [
+    { "path": "/login", "type": "happy", "label": "Login", "prd_sections": ["§19"] },
+    { "path": "/submissions", "type": "happy", "label": "Submissions", "prd_sections": ["§19"] },
+    { "path": "/submissions/:submissionId", "type": "happy", "label": "Overview", "prd_sections": ["§19"] },
+    {
+      "path": "/submissions/:submissionId/documents/:documentId",
+      "type": "happy",
+      "label": "Workspace",
+      "prd_sections": ["§19"]
+    },
+    {
+      "path": "/repository",
+      "type": "happy",
+      "label": "Mock repository destination",
+      "prd_sections": ["§10"]
+    }
+  ]
+}

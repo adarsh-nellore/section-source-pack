@@ -1,0 +1,31 @@
+{
+  "stage": 1,
+  "mode": "from-mockup",
+  "completed_at": "2026-05-18T00:00:00Z",
+  "chosen_direction_id": "dir-feature-tree-hybrid",
+  "dev_server": {
+    "url": "http://localhost:3053",
+    "port": 3053,
+    "command": "npm run dev"
+  },
+  "cornerstone_route": "/submissions/:submissionId/documents/:documentId",
+  "screen_inventory_path": "/Users/adarshnellore/Documents/section-source-pack-dressup-2026-05-18/.dress-up/screen-inventory.json",
+  "routes": [
+    "/login",
+    "/submissions",
+    "/submissions/[submissionId]",
+    "/submissions/[submissionId]/documents/[documentId]",
+    "/submissions/[submissionId]/documents/[documentId]/sections/[sectionId]",
+    "/repository"
+  ],
+  "query_views": [
+    "?section= (default section)",
+    "?source= (tri-sync selection)",
+    "?state=empty",
+    "?state=assembling",
+    "?modal=inherit-pack",
+    "?modal=move-source",
+    "?modal=mark-curated"
+  ],
+  "ux_notes": "FeatureManager tree is primary. Hover glass preview on sources. In-doc overlay on click (Stage 2 may CUT). Editor and section tree remain primary focus."
+}

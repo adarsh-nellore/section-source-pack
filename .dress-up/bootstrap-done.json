@@ -1,0 +1,12 @@
+{
+  "stage": 0,
+  "mode": "from-mockup",
+  "mockup_project_dir": "/Users/adarshnellore/Documents/peerAI-final_run",
+  "mockup_handoff": "/Users/adarshnellore/Documents/peerAI-final_run/mockup-handoff.json",
+  "lofi_concepts_path": "/Users/adarshnellore/Documents/peerAI-final_run/concepts.json",
+  "out": "/Users/adarshnellore/Documents/section-source-pack-dressup-2026-05-18",
+  "slug": "section-source-pack",
+  "prd_path": "/Users/adarshnellore/Documents/peerAI-final_run/PRD.md",
+  "brief_path": null,
+  "ux_notes": "Nav and source pack must stay modular: editor and section tree remain primary; drawer collapses by default; citation chips on specific claims open drawer to linked source without overtaking the canvas."
+}

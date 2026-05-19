@@ -1,0 +1,30 @@
+{
+  "name": "section-source-pack",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3053 --webpack",
+    "dev:restart": "lsof -ti:3053 | xargs kill -9 2>/dev/null; next dev -p 3053 --webpack",
+    "build": "next build",
+    "start": "next start",
+    "audit": "node scripts/audit-composition.mjs",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "prebuild": "node scripts/generate-manifest.mjs && node scripts/audit-composition.mjs"
+  },
+  "dependencies": {
+    "next": "^16.2.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "framer-motion": "^11.18.0",
+    "clsx": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "postcss": "^8.5.1",
+    "typescript": "^5.7.3"
+  }
+}
