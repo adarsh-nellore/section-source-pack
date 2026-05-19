@@ -205,6 +205,12 @@ html, body {
     opacity 0.22s ease;
 }
 
+.workspace-main--docked {
+  flex: 1 1 auto;
+  min-height: 0;
+  align-self: stretch;
+}
+
 .workspace-drawer {
   flex: 0 0 auto;
   width: clamp(18rem, 34vw, 32rem);
@@ -218,6 +224,15 @@ html, body {
   background: var(--color-paper);
   box-shadow: -8px 0 24px -14px rgb(15 18 22 / 0.1);
   animation: workspace-drawer-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.workspace-drawer-inner,
+.workspace-drawer-toolbar {
+  min-height: 0;
+}
+
+.workspace-drawer-toolbar {
+  border-bottom: 1px solid var(--color-hairline-strong);
 }
 
 .workspace-main--source-full .workspace-narrative {

@@ -3,26 +3,62 @@
 import { getSource } from "@/lib/mock-data";
 import type { SourceItem } from "@/lib/types";
 import { cn } from "@/lib/cn";
-import { Cluster } from "@/components/layout/Cluster";
-import { Button } from "@/components/ui/Button";
+import { Glyph } from "@/components/ui/Glyph";
 import { IconButton } from "@/components/ui/IconButton";
-import { Tab } from "@/components/ui/Tab";
-import type { TabKind } from "@/components/ui/Tab";
-import { MetaText } from "@/components/ui/MetaText";
 import { IconExpand, IconExternal, IconPanel, IconX } from "@/components/ui/icons";
 import { SourcePreviewCard } from "./source-preview/SourcePreviewCard";
 
-function tabKindForSource(source: SourceItem | undefined): TabKind {
-  if (!source) return "generic";
-  if (source.type === "tfl") return "csv";
-  if (source.type === "document_chunk") return "pdf";
-  return "md";
-}
-
 function tabLabel(source: SourceItem | undefined, fallbackId: string): string {
   const title = source?.title ?? fallbackId;
-  if (title.length <= 22) return title;
-  return `${title.slice(0, 20)}…`;
+  if (title.length <= 36) return title;
+  return `${title.slice(0, 34)}…`;
+}
+
+function SourceDrawerTab({
+  label,
+  active,
+  onSelect,
+  onClose,
+}: {
+  label: string;
+  active: boolean;
+  onSelect: () => void;
+  onClose: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={active}
+      onClick={onSelect}
+      title={label}
+      className={cn(
+        "group relative flex h-10 max-w-[10.5rem] shrink-0 items-center gap-1 border-b-2 px-2",
+        "font-mono text-[12px] leading-tight transition-colors",
+        active
+          ? "border-accent-indigo text-ink"
+          : "border-transparent text-muted hover:border-hairline hover:text-ink"
+      )}
+    >
+      <span className="min-w-0 truncate">{label}</span>
+      <span
+        role="button"
+        tabIndex={0}
+        aria-label={`Close ${label}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+        className={cn(
+          "inline-flex shrink-0 items-center justify-center rounded p-0.5 text-faint",
+          "hover:bg-soft hover:text-ink",
+          active ? "opacity-70" : "opacity-0 group-hover:opacity-100"
+        )}
+      >
+        <Glyph name="x" size={11} strokeWidth={2.5} />
+      </span>
+    </button>
+  );
 }
 
 export function WorkspaceSourceDrawer({
@@ -48,57 +84,58 @@ export function WorkspaceSourceDrawer({
   onDockBeside: () => void;
   onJumpToNarrative: (sourceId: string) => void;
 }) {
-  const active = getSource(activeSourceId);
-
   return (
     <div
-      className={cn("workspace-drawer-inner flex flex-col h-full min-h-0", expanded && "is-expanded")}
+      className={cn(
+        "workspace-drawer-inner flex h-full min-h-0 flex-col bg-paper",
+        expanded && "is-expanded"
+      )}
       data-wt="source-drawer"
     >
-      <header className="shrink-0 border-b border-hairline-strong bg-stripe">
-        <Cluster
-          gap="tight"
-          wrap={false}
-          align="center"
-          className="px-2 py-1.5 min-h-11"
-        >
+      <header className="workspace-drawer-toolbar shrink-0 bg-paper">
+        <div className="flex h-10 min-h-10 items-stretch gap-0.5 pl-1 pr-2">
           <IconButton
             variant="ghost"
             size="md"
             aria-label="Close source panel"
-            title="Close — working document expands"
+            title="Close panel"
             onClick={onCloseDrawer}
+            className="my-auto shrink-0"
           >
             <IconX className="w-4 h-4" />
           </IconButton>
 
-          <div className="workspace-drawer-tabs" role="tablist">
+          <div className="workspace-drawer-tabs min-w-0 flex-1" role="tablist">
             {openSourceIds.map((id) => {
               const source = getSource(id);
               return (
-                <Tab
+                <SourceDrawerTab
                   key={id}
                   label={tabLabel(source, id)}
-                  kind={tabKindForSource(source)}
                   active={id === activeSourceId}
-                  onClick={() => onSelectTab(id)}
+                  onSelect={() => onSelectTab(id)}
                   onClose={() => onCloseTab(id)}
-                  className="shrink-0 max-w-[11rem]"
                 />
               );
             })}
           </div>
 
-          <Cluster gap="tight" wrap={false} className="shrink-0 ml-auto">
+          <div className="flex shrink-0 items-center gap-0.5 my-auto">
             {expanded ? (
-              <Button variant="ghost" size="sm" onClick={onDockBeside} title="Show narrative beside source">
-                Side by side
-              </Button>
+              <IconButton
+                variant="ghost"
+                size="md"
+                aria-label="Side by side with narrative"
+                title="Side by side"
+                onClick={onDockBeside}
+              >
+                <IconPanel className="w-4 h-4" />
+              </IconButton>
             ) : (
               <IconButton
                 variant="ghost"
                 size="md"
-                aria-label="Expand source to full page"
+                aria-label="Expand to full page"
                 title="Full page"
                 onClick={onExpandFull}
               >
@@ -108,22 +145,17 @@ export function WorkspaceSourceDrawer({
             <IconButton
               variant="ghost"
               size="md"
-              aria-label="Open in new browser tab"
+              aria-label="Open in new tab"
               title="New tab"
               onClick={() => window.open(newTabHref, "_blank", "noopener,noreferrer")}
             >
               <IconExternal className="w-4 h-4" />
             </IconButton>
-          </Cluster>
-        </Cluster>
-        {active && (
-          <MetaText tone="faint" size="sm" className="px-3 pb-2 block truncate">
-            {active.title}
-          </MetaText>
-        )}
+          </div>
+        </div>
       </header>
 
-      <div className="flex-1 min-h-0 overflow-hidden bg-paper">
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
         <SourcePreviewCard
           key={activeSourceId}
           sourceId={activeSourceId}

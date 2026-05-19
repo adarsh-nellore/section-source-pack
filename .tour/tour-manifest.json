@@ -1,0 +1,137 @@
+{
+  "product": "Section Source Pack",
+  "persona": "Jordan — regulatory medical writer",
+  "cornerstone_route": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+  "storage_key": "section-source-pack-demo-tour-v2",
+  "session_key": "section-source-pack-tour-active",
+  "entry_route_map": [
+    { "pathname_pattern": "/submissions", "start_step_id": "welcome" },
+    { "pathname_pattern": "/submissions/:id", "start_step_id": "overview" },
+    { "pathname_pattern": "*/documents/*", "start_step_id": "workspace-entry" }
+  ],
+  "steps": [
+    {
+      "id": "welcome",
+      "title": "Section Source Pack",
+      "body": "How Jordan curates versioned source packs beside regulatory narrative.",
+      "href": "/submissions",
+      "target": null,
+      "placement": "corner-only"
+    },
+    {
+      "id": "program",
+      "title": "Your submission",
+      "body": "Open Rivonorex for the writer workspace.",
+      "href": "/submissions",
+      "target": "submission-card",
+      "placement": "corner-only"
+    },
+    {
+      "id": "overview",
+      "title": "Pack health",
+      "body": "Curated, stale, and empty packs before drill-in.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9",
+      "target": "overview-stats",
+      "placement": "corner-only"
+    },
+    {
+      "id": "workspace-entry",
+      "title": "Writer workspace",
+      "body": "Tree left; narrative and source preview right.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": "feature-tree",
+      "placement": "corner-only"
+    },
+    {
+      "id": "sections",
+      "title": "Document sections",
+      "body": "Each section owns a pack lifecycle.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": "document-sections",
+      "placement": "corner-only"
+    },
+    {
+      "id": "pack-toolbar",
+      "title": "Pack toolbar",
+      "body": "Assemble, re-assemble, inherit.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": "pack-toolbar",
+      "placement": "corner-only"
+    },
+    {
+      "id": "narrative",
+      "title": "Narrative + citations",
+      "body": "Citation chips; open a source beside narrative.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": "narrative-editor",
+      "placement": "corner-only"
+    },
+    {
+      "id": "tree-source",
+      "title": "Sources in tree",
+      "body": "Repo folders; selection syncs URL and citations.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy&source=src-tfl-primary",
+      "target": "source-tree",
+      "placement": "corner-only"
+    },
+    {
+      "id": "source-drawer",
+      "title": "Source drawer",
+      "body": "Tabs, dock, full page, new tab.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy&source=src-tfl-primary",
+      "target": "source-drawer",
+      "placement": "corner-only"
+    },
+    {
+      "id": "suggested",
+      "title": "Suggested vs filed",
+      "body": "Promote AI suggestions into the pack.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": "suggested-folder",
+      "placement": "corner-only"
+    },
+    {
+      "id": "stale",
+      "title": "Stale packs",
+      "body": "Review flagged sources before re-lock.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-safety",
+      "target": "stale-banner",
+      "placement": "corner-only"
+    },
+    {
+      "id": "assemble",
+      "title": "Empty pack assemble",
+      "body": "Assemble seeds Risk–Benefit from catalog.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-rb",
+      "target": "pack-toolbar",
+      "placement": "corner-only"
+    },
+    {
+      "id": "lock",
+      "title": "Lock the pack",
+      "body": "QC-ready section version.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": "lock-pack",
+      "placement": "corner-only"
+    },
+    {
+      "id": "done",
+      "title": "You are set",
+      "body": "Re-open from the corner button.",
+      "href": "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy",
+      "target": null,
+      "placement": "corner-only"
+    }
+  ],
+  "verification": {
+    "entry_urls_to_test": [
+      "/submissions",
+      "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9",
+      "/submissions/8f3a2c1b-9d4e-4a1f-b2c3-d4e5f6a7b8c9/documents/d1111111-2222-3333-4444-555555555551?section=s-efficacy&source=src-tfl-primary&tour=1"
+    ],
+    "qa_reset": [
+      "localStorage.removeItem('section-source-pack-demo-tour-v2')",
+      "sessionStorage.removeItem('section-source-pack-tour-active')"
+    ]
+  }
+}

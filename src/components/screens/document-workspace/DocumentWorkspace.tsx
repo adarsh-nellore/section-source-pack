@@ -13,6 +13,7 @@ import {
 } from "@/lib/mock-data";
 import type { RepoPath, SourceItem } from "@/lib/types";
 import { buildWorkspaceHref, parseOpenSourceIds } from "@/lib/workspace-url";
+import { cn } from "@/lib/cn";
 import { AppShell } from "@/components/layout/AppShell";
 import { Cluster } from "@/components/layout/Cluster";
 import { Stack } from "@/components/layout/Stack";
@@ -456,9 +457,18 @@ export function DocumentWorkspace({
           />
         }
       >
-        <Stack gap="block" className="h-full min-h-0 px-6 pt-5 pb-0 anim-fade-in">
+        <Stack
+          gap="block"
+          className={cn(
+            "flex h-full min-h-0 flex-col anim-fade-in pb-0",
+            !splitDocked && "px-6 pt-5"
+          )}
+        >
           {section?.pack_state === "stale" && (
-            <div data-wt="stale-banner" className="anim-fade-in-0 shrink-0">
+            <div
+              data-wt="stale-banner"
+              className={cn("anim-fade-in-0 shrink-0", splitDocked && "px-6 pt-5")}
+            >
               <Banner
                 tone="danger"
                 title="Pack stale"
@@ -469,10 +479,10 @@ export function DocumentWorkspace({
 
           {splitDocked ? (
             <div
-              className="workspace-main workspace-main--split flex flex-1 min-h-0 min-w-0 anim-fade-in-2"
+              className="workspace-main workspace-main--split workspace-main--docked flex flex-1 min-h-0 min-w-0 anim-fade-in-2"
               data-wt="workspace-split"
             >
-              <div className="workspace-doc-pane flex flex-col flex-1 min-w-0 min-h-0 pr-3">
+              <div className="workspace-doc-pane flex flex-col flex-1 min-w-0 min-h-0 px-6 pt-5 pr-4 pb-0">
                 {sectionPageHeader}
                 <div
                   data-wt="narrative-editor"

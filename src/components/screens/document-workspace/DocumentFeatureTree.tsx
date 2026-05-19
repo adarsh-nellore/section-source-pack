@@ -129,7 +129,7 @@ export function DocumentFeatureTree({
     <nav className="flex flex-col h-full min-h-0 bg-stripe" data-wt="feature-tree">
       <div className="flex-1 overflow-y-auto scroll-tame min-h-0">
         {/* Document sections */}
-        <section className="px-3 pt-3 pb-2">
+        <section className="px-3 pt-3 pb-2" data-wt="document-sections">
           <MetaLabel tone="muted" className="mb-2 block">
             Document sections
           </MetaLabel>
@@ -164,21 +164,16 @@ export function DocumentFeatureTree({
         {activeSection && (
           <>
             {/* Visual break between section picker and sources */}
-            <div className="mx-3 border-t-2 border-hairline-strong" aria-hidden />
+            <div className="mx-3 border-t border-hairline" aria-hidden />
 
-            <section className="bg-paper/60 px-3 py-3">
-              <Cluster justify="between" gap="cozy" align="start" wrap={false} className="mb-2">
-                <MetaLabel tone="default" className="font-medium">
-                  Sources
-                </MetaLabel>
-                <Badge tone="neutral" size="sm">
+            <section className="px-3 pb-3 pt-2.5">
+              <Cluster justify="between" gap="cozy" align="center" wrap={false} className="mb-1.5">
+                <MetaLabel tone="muted">Sources</MetaLabel>
+                <MetaText tone="faint" size="sm" className="tabular-nums">
                   v{packVersion ?? 1}
-                </Badge>
+                </MetaText>
               </Cluster>
-              <Body size="small" className="font-medium leading-snug text-ink line-clamp-2">
-                {activeSection.title}
-              </Body>
-              <MetaText tone="faint" size="sm" className="mt-1 block">
+              <MetaText tone="default" size="sm" className="block leading-snug">
                 {isAssembling
                   ? "Assembling from catalog…"
                   : `${inPackCount} in pack${suggested.length > 0 ? ` · ${suggested.length} suggested` : ""}`}
@@ -188,7 +183,7 @@ export function DocumentFeatureTree({
                 placeholder="Filter sources…"
                 value={sourceFilter}
                 onChange={(e) => onSourceFilterChange(e.target.value)}
-                containerClassName="mt-3"
+                containerClassName="mt-2.5"
               />
 
               {isAssembling ? (
@@ -215,7 +210,7 @@ export function DocumentFeatureTree({
                   body="Assemble from the catalog or add suggested items below."
                 />
               ) : (
-                <div data-wt="source-tree" className="mt-2 flex flex-col gap-2">
+                <div data-wt="source-tree" className="mt-1.5 flex flex-col gap-1.5">
                   {REPO_ORDER.map((repo) => {
                     const items = sortSourcesInFolder(inPackByRepo.get(repo) ?? []);
                     if (items.length === 0 && filterLower) return null;
@@ -246,7 +241,7 @@ export function DocumentFeatureTree({
                               size={12}
                               className="text-faint"
                             />
-                            <MetaText tone="ink" size="sm" className="font-medium">
+                            <MetaText tone="default" size="sm" className="font-medium">
                               {REPO_LABELS[repo]} ({items.length})
                             </MetaText>
                           </Cluster>
@@ -260,9 +255,9 @@ export function DocumentFeatureTree({
                     <Stack
                       gap="tight"
                       data-wt="suggested-folder"
-                      className="mt-2 pt-2 border-t border-dashed border-hairline-strong"
+                      className="mt-1.5 pt-1.5 border-t border-dashed border-hairline"
                     >
-                      <MetaText tone="faint" size="sm" className="px-1 font-medium">
+                      <MetaText tone="default" size="sm" className="px-1">
                         Suggested · not in pack
                       </MetaText>
                       {suggested.map((item) => renderLeaf(item, true))}

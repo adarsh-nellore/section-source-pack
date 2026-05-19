@@ -35,14 +35,14 @@ export function SourceTreeLeaf({
   const inText = item.citation_refs.length > 0;
 
   return (
-    <div className="ml-4 group/leaf">
+    <div className="ml-3 group/leaf">
       <div
         {...hover}
         className={cn(
           "flex items-start gap-0.5 rounded px-1 py-1 border-l-2",
           selected
-            ? "border-ink bg-soft"
-            : "border-transparent hover:bg-paper"
+            ? "border-coral/50 bg-paper shadow-card"
+            : "border-transparent hover:bg-paper/80"
         )}
       >
         <button
@@ -73,7 +73,7 @@ export function SourceTreeLeaf({
           }}
           className="flex flex-1 items-start gap-1 min-w-0 text-left cursor-pointer"
         >
-          <StackColumn item={item} inText={inText} />
+          <StackColumn item={item} inText={inText} selected={selected} />
         </button>
 
         <Cluster
@@ -133,10 +133,24 @@ export function SourceTreeLeaf({
   );
 }
 
-function StackColumn({ item, inText }: { item: SourceItem; inText: boolean }) {
+function StackColumn({
+  item,
+  inText,
+  selected,
+}: {
+  item: SourceItem;
+  inText: boolean;
+  selected: boolean;
+}) {
   return (
     <span className="flex-1 min-w-0">
-      <Body size="small" className="block truncate font-medium leading-snug">
+      <Body
+        size="small"
+        className={cn(
+          "block truncate leading-snug",
+          selected ? "font-medium text-ink" : "text-muted"
+        )}
+      >
         {item.title}
       </Body>
       <Cluster gap="tight" className="mt-0.5 flex-wrap">

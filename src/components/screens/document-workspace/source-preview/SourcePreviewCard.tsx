@@ -57,10 +57,10 @@ export function SourcePreviewCard({
         isPopover && "max-h-[min(440px,80vh)] rounded-[inherit]"
       )}
     >
+      {!isPane && (
       <header
         className={cn(
-          "shrink-0 border-b border-hairline-strong",
-          isPane ? "px-3 pt-2.5 pb-2" : "px-4 pt-4 pb-3",
+          "shrink-0 border-b border-hairline-strong px-4 pt-4 pb-3",
           isPopover && onOpenInWorkspace && "cursor-pointer hover:bg-soft/60"
         )}
         onClick={isPopover && onOpenInWorkspace ? onOpenInWorkspace : undefined}
@@ -77,36 +77,34 @@ export function SourcePreviewCard({
         role={isPopover && onOpenInWorkspace ? "button" : undefined}
         tabIndex={isPopover && onOpenInWorkspace ? 0 : undefined}
       >
-        <Cluster gap="cozy" className={isPane ? "mb-1" : "mb-2"}>
-          <MetaLabel tone="muted" className={isPane ? "text-[10px]" : undefined}>
-            {REPO_LABELS[artifact.repo_path]}
-          </MetaLabel>
+        <Cluster gap="cozy" className="mb-2">
+          <MetaLabel tone="muted">{REPO_LABELS[artifact.repo_path]}</MetaLabel>
           <Pill variant="outlined" size="sm" asStatic>
             {artifact.kind === "table" ? "Table" : "Document"}
           </Pill>
         </Cluster>
-        {!isPane && (
-          <>
-            <Heading size={isPage ? "h2" : "h4"}>{artifact.title}</Heading>
-            <MetaText tone="faint" size="sm" className="mt-1 block">
-              {artifact.version_label}
-            </MetaText>
-          </>
-        )}
-        {isPane && (
-          <MetaText tone="faint" size="sm" className="block text-[11px] leading-snug">
-            {artifact.version_label}
-          </MetaText>
-        )}
+        <Heading size={isPage ? "h2" : "h4"}>{artifact.title}</Heading>
+        <MetaText tone="faint" size="sm" className="mt-1 block">
+          {artifact.version_label}
+        </MetaText>
       </header>
+      )}
 
       <div
         className={cn(
           "flex-1 min-h-0 overflow-y-auto scroll-tame",
-          isPane ? "px-3 py-2.5 text-[13px] leading-snug" : "px-4 py-4",
+          isPane ? "px-3 py-3 text-[13px] leading-snug" : "px-4 py-4",
           isEmbedded ? "max-h-none flex-1" : "max-h-[300px]"
         )}
       >
+        {isPane && (
+          <Cluster gap="cozy" className="mb-2 pb-2 border-b border-hairline">
+            <MetaLabel tone="muted">{REPO_LABELS[artifact.repo_path]}</MetaLabel>
+            <MetaText tone="faint" size="sm">
+              {artifact.version_label}
+            </MetaText>
+          </Cluster>
+        )}
         {artifact.kind === "text" ? (
           <Stack gap={isPane ? "cozy" : "block"}>
             {artifact.paragraphs.map((p, i) => (
