@@ -67,11 +67,13 @@ function SourcePreviewPortal({
   onEnter,
   onLeave,
   onJumpToNarrativeForSource,
+  onOpenSourceInWorkspace,
 }: {
   preview: PreviewState | null;
   onEnter: () => void;
   onLeave: () => void;
   onJumpToNarrativeForSource?: (sourceId: string) => void;
+  onOpenSourceInWorkspace?: (sourceId: string) => void;
 }) {
   const [mounted, setMounted] = useState(false);
 
@@ -98,6 +100,11 @@ function SourcePreviewPortal({
               ? () => onJumpToNarrativeForSource(preview.sourceId)
               : undefined
           }
+          onOpenInWorkspace={
+            onOpenSourceInWorkspace
+              ? () => onOpenSourceInWorkspace(preview.sourceId)
+              : undefined
+          }
         />
       </div>
     </div>,
@@ -108,9 +115,11 @@ function SourcePreviewPortal({
 export function SourcePreviewProvider({
   children,
   onJumpToNarrativeForSource,
+  onOpenSourceInWorkspace,
 }: {
   children: ReactNode;
   onJumpToNarrativeForSource?: (sourceId: string) => void;
+  onOpenSourceInWorkspace?: (sourceId: string) => void;
 }) {
   const [preview, setPreview] = useState<PreviewState | null>(null);
   const showTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -155,6 +164,15 @@ export function SourcePreviewProvider({
     [show, hide, cancelHide]
   );
 
+  const handleOpenInWorkspace = useCallback(
+    (sourceId: string) => {
+      setPreview(null);
+      clearTimers();
+      onOpenSourceInWorkspace?.(sourceId);
+    },
+    [onOpenSourceInWorkspace]
+  );
+
   return (
     <SourcePreviewContext.Provider value={{ bindSource }}>
       {children}
@@ -163,6 +181,7 @@ export function SourcePreviewProvider({
         onEnter={cancelHide}
         onLeave={hide}
         onJumpToNarrativeForSource={onJumpToNarrativeForSource}
+        onOpenSourceInWorkspace={onOpenSourceInWorkspace ? handleOpenInWorkspace : undefined}
       />
     </SourcePreviewContext.Provider>
   );

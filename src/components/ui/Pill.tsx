@@ -26,6 +26,7 @@ export interface PillProps {
   leadingIcon?: ReactNode;
   trailingIcon?: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  onAuxClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   className?: string;
   /** Render as a non-interactive span instead of a button. */
@@ -52,6 +53,7 @@ export function Pill({
   leadingIcon,
   trailingIcon,
   onClick,
+  onAuxClick,
   disabled,
   asStatic = false,
   className,
@@ -76,7 +78,13 @@ export function Pill({
   if (asStatic) return <span className={base}>{content}</span>;
 
   return (
-    <button type="button" onClick={onClick} disabled={disabled} className={base}>
+    <button
+      type="button"
+      onClick={onClick}
+      onAuxClick={onAuxClick}
+      disabled={disabled}
+      className={base}
+    >
       {content}
     </button>
   );

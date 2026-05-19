@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Inconsolata, Fraunces } from "next/font/google";
+import { ClientProviders } from "@/components/providers/ClientProviders";
 import "./globals.css";
 
 const inter = Inter({
@@ -32,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${inter.variable} ${inconsolata.variable} ${fraunces.variable} h-full`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full">
+        <ClientProviders>{children}</ClientProviders>
+      </body>
     </html>
   );
 }

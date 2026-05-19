@@ -64,7 +64,10 @@ export default async function SubmissionOverviewPage({
           }
         />
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 anim-fade-in-0">
+        <div
+          className="grid grid-cols-2 sm:grid-cols-4 gap-3 anim-fade-in-0"
+          data-wt="overview-stats"
+        >
           <Stat variant="card" label="Curated packs" value={String(packStats.curated)} />
           <Stat
             variant="card"

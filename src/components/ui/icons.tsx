@@ -95,3 +95,17 @@ export function IconPanel({ className = "w-3.5 h-3.5" }: IconProps) {
     </svg>
   );
 }
+
+export function IconExpand({ className = "w-3.5 h-3.5" }: IconProps) {
+  return (
+    <svg className={className} viewBox="0 0 16 16" fill="none" aria-hidden>
+      <path
+        d="M6 2H2v4M10 2h4v4M10 14h4v-4M6 14H2v-4"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

@@ -21,11 +21,14 @@ type TableRow = Record<string, unknown> & { id: string };
 export function SourcePreviewCard({
   sourceId,
   onJumpToNarrative,
+  onOpenInWorkspace,
   layout = "popover",
 }: {
   sourceId: string;
   onJumpToNarrative?: () => void;
-  layout?: "popover" | "page";
+  /** Popover only: open full source in the main document pane (same as tree click). */
+  onOpenInWorkspace?: () => void;
+  layout?: "popover" | "page" | "pane";
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -37,7 +40,11 @@ export function SourcePreviewCard({
   const narrative = getNarrative(source.section_id);
   const inText = source.citation_refs.length > 0;
   const meta = sourceMeta[source.id];
+  const isPopover = layout === "popover";
+  const isPane = layout === "pane";
   const isPage = layout === "page";
+  const isEmbedded = isPage || isPane;
+  const isCompact = isPopover || isPane;
   const workspaceQs = searchParams.toString();
   const repositoryHref = `/repository?source=${source.id}&from=${encodeURIComponent(`${pathname}${workspaceQs ? `?${workspaceQs}` : ""}`)}`;
 
@@ -45,51 +52,91 @@ export function SourcePreviewCard({
     <article
       className={cn(
         "source-preview-card flex flex-col overflow-hidden bg-paper",
-        isPage
-          ? "rounded-card border border-hairline-strong shadow-card w-full"
-          : "max-h-[min(440px,80vh)] rounded-[inherit]"
+        isPane && "h-full min-h-0 border-0 shadow-none rounded-none",
+        isPage && "rounded-card border border-hairline-strong shadow-card w-full h-full min-h-0",
+        isPopover && "max-h-[min(440px,80vh)] rounded-[inherit]"
       )}
     >
-      <header className="shrink-0 px-4 pt-4 pb-3 border-b border-hairline-strong">
-        <Cluster gap="cozy" className="mb-2">
-          <MetaLabel tone="muted">{REPO_LABELS[artifact.repo_path]}</MetaLabel>
+      <header
+        className={cn(
+          "shrink-0 border-b border-hairline-strong",
+          isPane ? "px-3 pt-2.5 pb-2" : "px-4 pt-4 pb-3",
+          isPopover && onOpenInWorkspace && "cursor-pointer hover:bg-soft/60"
+        )}
+        onClick={isPopover && onOpenInWorkspace ? onOpenInWorkspace : undefined}
+        onKeyDown={
+          isPopover && onOpenInWorkspace
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onOpenInWorkspace();
+                }
+              }
+            : undefined
+        }
+        role={isPopover && onOpenInWorkspace ? "button" : undefined}
+        tabIndex={isPopover && onOpenInWorkspace ? 0 : undefined}
+      >
+        <Cluster gap="cozy" className={isPane ? "mb-1" : "mb-2"}>
+          <MetaLabel tone="muted" className={isPane ? "text-[10px]" : undefined}>
+            {REPO_LABELS[artifact.repo_path]}
+          </MetaLabel>
           <Pill variant="outlined" size="sm" asStatic>
             {artifact.kind === "table" ? "Table" : "Document"}
           </Pill>
         </Cluster>
-        <Heading size={isPage ? "h2" : "h4"}>{artifact.title}</Heading>
-        <MetaText tone="faint" size="sm" className="mt-1 block">
-          {artifact.version_label}
-        </MetaText>
+        {!isPane && (
+          <>
+            <Heading size={isPage ? "h2" : "h4"}>{artifact.title}</Heading>
+            <MetaText tone="faint" size="sm" className="mt-1 block">
+              {artifact.version_label}
+            </MetaText>
+          </>
+        )}
+        {isPane && (
+          <MetaText tone="faint" size="sm" className="block text-[11px] leading-snug">
+            {artifact.version_label}
+          </MetaText>
+        )}
       </header>
 
       <div
         className={cn(
-          "flex-1 min-h-0 overflow-y-auto scroll-tame px-4 py-4",
-          isPage ? "max-h-none" : "max-h-[300px]"
+          "flex-1 min-h-0 overflow-y-auto scroll-tame",
+          isPane ? "px-3 py-2.5 text-[13px] leading-snug" : "px-4 py-4",
+          isEmbedded ? "max-h-none flex-1" : "max-h-[300px]"
         )}
       >
         {artifact.kind === "text" ? (
-          <Stack gap="block">
+          <Stack gap={isPane ? "cozy" : "block"}>
             {artifact.paragraphs.map((p, i) => (
-              <Body key={i} size="body" tone={i === 0 ? "ink" : "muted"}>
+              <Body
+                key={i}
+                size={isPane ? "small" : "body"}
+                tone={i === 0 ? "ink" : "muted"}
+              >
                 {p}
               </Body>
             ))}
           </Stack>
         ) : (
-          <Stack gap="block">
-            <Body size="small" tone="muted">
+          <Stack gap={isPane ? "cozy" : "block"}>
+            <Body size="small" tone="muted" className={isPane ? "text-[11px]" : undefined}>
               {artifact.caption}
             </Body>
             <div className="overflow-x-auto min-w-0 rounded-md border border-hairline-strong">
-              <PreviewTable artifact={artifact} compact={!isPage} />
+              <PreviewTable artifact={artifact} compact={isCompact} />
             </div>
           </Stack>
         )}
       </div>
 
-      <footer className="shrink-0 border-t border-hairline-strong bg-stripe px-4 py-3">
+      <footer
+        className={cn(
+          "shrink-0 border-t border-hairline-strong bg-stripe",
+          isPane ? "px-3 py-2" : "px-4 py-3"
+        )}
+      >
         <Stack gap="cozy">
           {artifact.key_pills.length > 0 && (
             <Cluster gap="tight" wrap>
@@ -117,11 +164,23 @@ export function SourcePreviewCard({
                 </MetaText>
               ) : null}
             </Cluster>
-            {!isPage && (
-              <TextLink href={repositoryHref} tone="muted" size="sm" trailingArrow>
-                Full view
-              </TextLink>
-            )}
+            {isPopover &&
+              (onOpenInWorkspace ? (
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpenInWorkspace();
+                  }}
+                >
+                  Open in split
+                </Button>
+              ) : (
+                <TextLink href={repositoryHref} tone="muted" size="sm" trailingArrow>
+                  Full view
+                </TextLink>
+              ))}
           </Cluster>
         </Stack>
       </footer>

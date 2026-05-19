@@ -71,7 +71,7 @@ This file is the canonical input to `/build-hifi` Beat 1. The skill Reads this s
 - **Modal** — Modal.tsx — `ModalProps { open: boolean; title?: ReactNode; description?: ReactNode; size?: ModalSize; onClose?: () => void; footer?: ReactNode; children?: ReactNode; className?: string }`
 - **Pagination** — Pagination.tsx — `PaginationProps { current: number; total: number; onPageChange?: (page: number) => void; compact?: boolean; className?: string }`
 - **PeerBrand** — PeerBrand.tsx — `PeerBrandProps { size?: PeerBrandSize; markOnly?: boolean; className?: string }`
-- **Pill** — Pill.tsx — `PillProps { children?: ReactNode; variant?: PillVariant; size?: PillSize; leadingIcon?: ReactNode; trailingIcon?: ReactNode; onClick?: MouseEventHandler<HTMLButtonElement>; disabled?: boolean; className?: string; asStatic?: boolean }`
+- **Pill** — Pill.tsx — `PillProps { children?: ReactNode; variant?: PillVariant; size?: PillSize; leadingIcon?: ReactNode; trailingIcon?: ReactNode; onClick?: MouseEventHandler<HTMLButtonElement>; onAuxClick?: MouseEventHandler<HTMLButtonElement>; disabled?: boolean; className?: string; asStatic?: boolean }`
 - **ProgressBar** — ProgressBar.tsx — `ProgressBarProps { value: number; tone?: ProgressBarTone; showValue?: boolean; label?: ReactNode; size?: "thin" | "default"; className?: string }`
 - **ProgressDots** — ProgressDots.tsx — `ProgressDotsProps { total: number; current: number; connector?: boolean; className?: string }`
 - **Radio** — Radio.tsx — `(no Props type)`
@@ -103,6 +103,7 @@ This file is the canonical input to `/build-hifi` Beat 1. The skill Reads this s
 - **IconTrash** — icons.tsx — `(no Props type)`
 - **IconGrip** — icons.tsx — `(no Props type)`
 - **IconPanel** — icons.tsx — `(no Props type)`
+- **IconExpand** — icons.tsx — `(no Props type)`
 
 ### @/components/patterns
 
@@ -189,7 +190,7 @@ This file is the canonical input to `/build-hifi` Beat 1. The skill Reads this s
 
 ## Animation utilities
 
-Keyframes: `ads-fade-in`
+Keyframes: `ads-fade-in`, `workspace-drawer-in`
 
 Utility classes (apply to elements; do NOT invent new ones):
 ```

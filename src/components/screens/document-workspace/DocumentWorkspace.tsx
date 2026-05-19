@@ -12,6 +12,7 @@ import {
   sourceItems as initialSources,
 } from "@/lib/mock-data";
 import type { RepoPath, SourceItem } from "@/lib/types";
+import { buildWorkspaceHref, parseOpenSourceIds } from "@/lib/workspace-url";
 import { AppShell } from "@/components/layout/AppShell";
 import { Cluster } from "@/components/layout/Cluster";
 import { Stack } from "@/components/layout/Stack";
@@ -20,7 +21,6 @@ import { PageHeader } from "@/components/patterns/PageHeader";
 import { Prose } from "@/components/patterns/Prose";
 import { Banner } from "@/components/ui/Banner";
 import { Button } from "@/components/ui/Button";
-import { LinkButton } from "@/components/layout/LinkButton";
 import { MetaText } from "@/components/ui/MetaText";
 import { Pill } from "@/components/ui/Pill";
 import { Dot } from "@/components/ui/Dot";
@@ -29,6 +29,7 @@ import { DocumentFeatureTree } from "./DocumentFeatureTree";
 import { SourcePreviewProvider } from "./source-preview/SourcePreviewContext";
 import { SectionNarrativeBody } from "./SectionNarrativeBody";
 import { WorkspaceModals } from "./WorkspaceModals";
+import { WorkspaceSourceDrawer } from "./WorkspaceSourceDrawer";
 
 const ASSEMBLE_SEED: Omit<SourceItem, "section_id">[] = [
   {
@@ -118,8 +119,10 @@ export function DocumentWorkspace({
 
   const sectionFromUrl = searchParams.get("section");
   const sourceFromUrl = searchParams.get("source");
+  const activeSourceId = sourceFromUrl;
   const activeSectionId = sectionFromUrl ?? docSections[0]?.id ?? "";
   const isAssembling = searchParams.get("state") === "assembling";
+  const sourceFull = searchParams.get("layout") === "source-full";
 
   const [sources, setSources] = useState<SourceItem[]>(initialSources);
   const [sourceFilter, setSourceFilter] = useState("");
@@ -162,17 +165,73 @@ export function DocumentWorkspace({
     return () => window.clearTimeout(t);
   }, [isAssembling, setQuery]);
 
-  const selectSource = useCallback(
-    (sourceId: string) => {
-      const src = sources.find((s) => s.id === sourceId);
-      const sectionId = src?.section_id ?? activeSectionId;
-      setQuery({ source: sourceId, section: sectionId });
-    },
-    [activeSectionId, setQuery, sources]
+  const openSourceIds = useMemo(
+    () => parseOpenSourceIds(searchParams.get("open"), sourceFromUrl),
+    [searchParams, sourceFromUrl]
   );
 
+  const openSource = useCallback(
+    (sourceId: string, opts?: { newTab?: boolean }) => {
+      const src = sources.find((s) => s.id === sourceId);
+      const sectionId = src?.section_id ?? activeSectionId;
+      const nextOpen = openSourceIds.includes(sourceId)
+        ? openSourceIds
+        : [...openSourceIds, sourceId];
+      const href = buildWorkspaceHref(
+        pathname,
+        { section: sectionId, source: sourceId, open: nextOpen, layout: null },
+        searchParams
+      );
+      if (opts?.newTab) {
+        window.open(href, "_blank", "noopener,noreferrer");
+        return;
+      }
+      router.push(href, { scroll: false });
+    },
+    [activeSectionId, openSourceIds, pathname, router, searchParams, sources]
+  );
+
+  const setActiveSourceTab = useCallback(
+    (sourceId: string) => {
+      if (!openSourceIds.includes(sourceId)) {
+        openSource(sourceId);
+        return;
+      }
+      setQuery({ source: sourceId });
+    },
+    [openSource, openSourceIds, setQuery]
+  );
+
+  const closeSourceTab = useCallback(
+    (sourceId: string) => {
+      const nextOpen = openSourceIds.filter((id) => id !== sourceId);
+      if (nextOpen.length === 0) {
+        setQuery({ source: null, open: null, layout: null });
+        return;
+      }
+      const nextActive =
+        activeSourceId === sourceId
+          ? nextOpen[nextOpen.length - 1]!
+          : activeSourceId ?? nextOpen[0]!;
+      setQuery({ source: nextActive, open: nextOpen.join(",") });
+    },
+    [activeSourceId, openSourceIds, setQuery]
+  );
+
+  const closeSourcePanel = useCallback(() => {
+    setQuery({ source: null, open: null, layout: null });
+  }, [setQuery]);
+
+  const expandSourceFull = useCallback(() => {
+    setQuery({ layout: "source-full" });
+  }, [setQuery]);
+
+  const dockSourceBeside = useCallback(() => {
+    setQuery({ layout: null });
+  }, [setQuery]);
+
   const selectSection = (sectionId: string) => {
-    setQuery({ section: sectionId, source: null });
+    setQuery({ section: sectionId, source: null, open: null, layout: null });
   };
 
   const submission = getSubmission(submissionId);
@@ -184,7 +243,23 @@ export function DocumentWorkspace({
     [sources, activeSectionId]
   );
 
-  const activeSourceId = sourceFromUrl;
+  const splitOpen = Boolean(activeSourceId && openSourceIds.length > 0);
+  const splitDocked = splitOpen && Boolean(activeSourceId) && !sourceFull;
+
+  const repositoryHref = useMemo(() => {
+    if (!activeSourceId) return "/repository";
+    const qs = searchParams.toString();
+    return `/repository?source=${activeSourceId}&from=${encodeURIComponent(`${pathname}${qs ? `?${qs}` : ""}`)}`;
+  }, [activeSourceId, pathname, searchParams]);
+
+  const sourceNewTabHref = useMemo(() => {
+    if (!activeSourceId) return pathname;
+    return buildWorkspaceHref(
+      pathname,
+      { source: activeSourceId, open: openSourceIds, section: activeSectionId },
+      searchParams
+    );
+  }, [activeSectionId, activeSourceId, openSourceIds, pathname, searchParams]);
 
   const inPackForSection = sectionSources.filter((s) => s.membership === "in_pack");
   const staleInPack = inPackForSection.filter((s) => s.is_stale);
@@ -247,7 +322,7 @@ export function DocumentWorkspace({
 
   const onDelete = (id: string) => {
     setSources((prev) => prev.filter((s) => s.id !== id));
-    if (activeSourceId === id) setQuery({ source: null });
+    if (openSourceIds.includes(id)) closeSourceTab(id);
   };
 
   const onPromote = (id: string) => {
@@ -259,13 +334,77 @@ export function DocumentWorkspace({
   };
 
   const onAssemble = () => {
-    setQuery({ state: "assembling", source: null });
+    setQuery({ state: "assembling", source: null, open: null, layout: null });
   };
 
   const modal = searchParams.get("modal");
 
+  const versionMeta = (
+    <Cluster gap="cozy" align="center" wrap>
+      {docVersions.map((d) => (
+        <Pill
+          key={d.id}
+          variant={d.id === documentId ? "accent" : "outlined"}
+          size="sm"
+          leadingIcon={d.id === documentId ? <Dot color="coral" pulse /> : undefined}
+        >
+          {d.version_label}
+        </Pill>
+      ))}
+    </Cluster>
+  );
+
+  const sectionPageHeader = (
+    <PageHeader
+      title={section?.title ?? ""}
+      titleSize="h2"
+      meta={versionMeta}
+      action={
+        <span data-wt="lock-pack">
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={!canLockPack}
+            title={lockDisabledReason ?? "Lock source pack for this section version"}
+            onClick={() => setQuery({ modal: "mark-curated" })}
+          >
+            Lock source pack
+          </Button>
+        </span>
+      }
+      className="anim-fade-in-1 shrink-0"
+    />
+  );
+
+  const sourceDrawerPanel =
+    splitOpen && activeSourceId ? (
+      <aside className="workspace-drawer">
+        <WorkspaceSourceDrawer
+          openSourceIds={openSourceIds}
+          activeSourceId={activeSourceId}
+          expanded={sourceFull}
+          newTabHref={sourceNewTabHref}
+          onSelectTab={setActiveSourceTab}
+          onCloseTab={closeSourceTab}
+          onCloseDrawer={closeSourcePanel}
+          onExpandFull={expandSourceFull}
+          onDockBeside={dockSourceBeside}
+          onJumpToNarrative={(sourceId) => {
+            jumpToNarrativeForSource(sourceId);
+            if (sourceFull) dockSourceBeside();
+          }}
+        />
+      </aside>
+    ) : null;
+
   return (
-    <SourcePreviewProvider onJumpToNarrativeForSource={jumpToNarrativeForSource}>
+    <SourcePreviewProvider
+      onJumpToNarrativeForSource={(sourceId) => {
+        jumpToNarrativeForSource(sourceId);
+        if (activeSourceId) closeSourcePanel();
+      }}
+      onOpenSourceInWorkspace={openSource}
+    >
       <AppShell
         className="h-dvh"
         leftNavWidth={288}
@@ -305,7 +444,7 @@ export function DocumentWorkspace({
             sourceFilter={sourceFilter}
             onSourceFilterChange={setSourceFilter}
             onSectionSelect={selectSection}
-            onSourceSelect={selectSource}
+            onSourceSelect={openSource}
             onReparent={onReparent}
             onPin={onPin}
             onDelete={onDelete}
@@ -319,83 +458,70 @@ export function DocumentWorkspace({
       >
         <Stack gap="block" className="h-full min-h-0 px-6 pt-5 pb-0 anim-fade-in">
           {section?.pack_state === "stale" && (
-            <Banner
-              tone="danger"
-              title="Pack stale"
-              body={`${staleInPack.length} source(s) have newer artifact versions in the index. Review and replace before re-locking.`}
-              className="anim-fade-in-0"
-            />
+            <div data-wt="stale-banner" className="anim-fade-in-0 shrink-0">
+              <Banner
+                tone="danger"
+                title="Pack stale"
+                body={`${staleInPack.length} source(s) have newer artifact versions in the index. Review and replace before re-locking.`}
+              />
+            </div>
           )}
 
-          <PageHeader
-            title={section?.title ?? ""}
-            titleSize="h2"
-            meta={
-              <Cluster gap="cozy" align="center" wrap>
-                {docVersions.map((d) => (
-                  <Pill
-                    key={d.id}
-                    variant={d.id === documentId ? "accent" : "outlined"}
-                    size="sm"
-                    leadingIcon={
-                      d.id === documentId ? <Dot color="coral" pulse /> : undefined
-                    }
+          {splitDocked ? (
+            <div
+              className="workspace-main workspace-main--split flex flex-1 min-h-0 min-w-0 anim-fade-in-2"
+              data-wt="workspace-split"
+            >
+              <div className="workspace-doc-pane flex flex-col flex-1 min-w-0 min-h-0 pr-3">
+                {sectionPageHeader}
+                <div
+                  data-wt="narrative-editor"
+                  className="workspace-narrative scroll-tame flex-1 min-h-0 py-3 pb-6"
+                >
+                  <Prose
+                    variant="article"
+                    className="mx-0 w-full max-w-[min(100%,56rem)]"
                   >
-                    {d.version_label}
-                  </Pill>
-                ))}
-                {docVersions.length > 1 && (
-                  <LinkButton
-                    href={
-                      "/submissions/" +
-                      submissionId +
-                      "/documents/" +
-                      docVersions[1]?.id +
-                      "?section=" +
-                      activeSectionId +
-                      "&modal=inherit-pack"
-                    }
-                    variant="ghost"
-                    size="sm"
+                    <SectionNarrativeBody
+                      sectionId={activeSectionId}
+                      activeSourceId={activeSourceId}
+                      pulseCiteId={pulseCiteId}
+                      onSelectCitation={openSource}
+                    />
+                  </Prose>
+                </div>
+              </div>
+              {sourceDrawerPanel}
+            </div>
+          ) : (
+            <>
+              {!sourceFull && sectionPageHeader}
+              <div
+                className="flex-1 min-h-0 pb-2 anim-fade-in-2 flex flex-col min-w-0"
+                data-wt="workspace-split"
+              >
+                {sourceFull && splitOpen ? (
+                  <div className="workspace-main workspace-main--split workspace-main--source-full flex-1 min-h-0">
+                    {sourceDrawerPanel}
+                  </div>
+                ) : (
+                  <div
+                    data-wt="narrative-editor"
+                    className="workspace-narrative scroll-tame flex-1 min-h-0 pb-8"
                   >
-                    Inherit from prior version
-                  </LinkButton>
+                    <Prose variant="article" className="max-w-[52rem]">
+                      <SectionNarrativeBody
+                        sectionId={activeSectionId}
+                        activeSourceId={activeSourceId}
+                        pulseCiteId={pulseCiteId}
+                        onSelectCitation={openSource}
+                      />
+                    </Prose>
+                  </div>
                 )}
-              </Cluster>
-            }
-            action={
-              <Cluster gap="cozy" wrap={false}>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setQuery({ modal: "inherit-pack" })}
-                >
-                  Inherit pack
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  disabled={!canLockPack}
-                  title={lockDisabledReason ?? "Lock source pack for this section version"}
-                  onClick={() => setQuery({ modal: "mark-curated" })}
-                >
-                  Lock source pack
-                </Button>
-              </Cluster>
-            }
-            className="anim-fade-in-1"
-          />
-
-          <div className="flex-1 min-h-0 overflow-y-auto scroll-tame pb-8 anim-fade-in-2">
-            <Prose variant="article" className="max-w-[52rem]">
-              <SectionNarrativeBody
-                sectionId={activeSectionId}
-                activeSourceId={activeSourceId}
-                pulseCiteId={pulseCiteId}
-                onSelectCitation={selectSource}
-              />
-            </Prose>
-          </div>
+              </div>
+            </>
+          )}
         </Stack>
       </AppShell>
 

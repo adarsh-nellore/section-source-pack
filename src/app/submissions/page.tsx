@@ -52,6 +52,7 @@ export default function SubmissionsListPage() {
                     : `/submissions/${submission.id}`
                 }
                 className="block group"
+                data-wt={submission.id === sub?.id ? "submission-card" : undefined}
               >
                 <Card
                   variant="paper"

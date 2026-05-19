@@ -15,7 +15,7 @@ export function NarrativeCitation({
   cite: CitationAnchor;
   active: boolean;
   pulsing: boolean;
-  onSelect: () => void;
+  onSelect: (opts?: { newTab?: boolean }) => void;
 }) {
   const hover = useSourceHoverHandlers(cite.source_item_id);
   const src = getSource(cite.source_item_id);
@@ -24,13 +24,19 @@ export function NarrativeCitation({
     <span
       {...hover}
       id={`cite-${cite.id}`}
-      title={src?.title ?? "Source"}
+      title={`${src?.title ?? "Source"} — click to open, ⌘-click for new tab`}
       className="inline-flex align-baseline mx-0.5"
     >
       <Pill
         variant={active ? "accent" : "outlined"}
         size="sm"
-        onClick={onSelect}
+        onClick={(e) => onSelect({ newTab: e.metaKey || e.ctrlKey })}
+        onAuxClick={(e) => {
+          if (e.button === 1) {
+            e.preventDefault();
+            onSelect({ newTab: true });
+          }
+        }}
         className={cn(active && "ring-2 ring-coral/30", pulsing && "ring-4 ring-coral/40 scale-105")}
       >
         {cite.label}

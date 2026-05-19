@@ -16,7 +16,7 @@ export function SectionNarrativeBody({
   sectionId: string;
   activeSourceId: string | null;
   pulseCiteId: string | null;
-  onSelectCitation: (sourceId: string) => void;
+  onSelectCitation: (sourceId: string, opts?: { newTab?: boolean }) => void;
 }) {
   const paragraphs = getNarrativeParagraphs(sectionId);
   const narrative = getNarrative(sectionId);
@@ -39,7 +39,7 @@ export function SectionNarrativeBody({
                   cite={cite}
                   active={activeSourceId === cite.source_item_id}
                   pulsing={pulseCiteId === cite.id}
-                  onSelect={() => onSelectCitation(cite.source_item_id)}
+                  onSelect={(opts) => onSelectCitation(cite.source_item_id, opts)}
                 />
               );
             })}
@@ -67,7 +67,7 @@ export function SectionNarrativeBody({
           cite={cite}
           active={activeSourceId === cite.source_item_id}
           pulsing={pulseCiteId === cite.id}
-          onSelect={() => onSelectCitation(cite.source_item_id)}
+          onSelect={(opts) => onSelectCitation(cite.source_item_id, opts)}
         />
       ))}
     </Body>

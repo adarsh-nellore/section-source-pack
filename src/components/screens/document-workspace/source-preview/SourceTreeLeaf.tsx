@@ -24,7 +24,7 @@ export function SourceTreeLeaf({
 }: {
   item: SourceItem;
   selected: boolean;
-  onSelect: (id: string) => void;
+  onSelect: (id: string, opts?: { newTab?: boolean }) => void;
   onPin: (id: string) => void;
   onDelete: (id: string) => void;
   onDragReorder: (sourceId: string) => void;
@@ -62,7 +62,15 @@ export function SourceTreeLeaf({
 
         <button
           type="button"
-          onClick={() => onSelect(item.id)}
+          onClick={(e) =>
+            onSelect(item.id, { newTab: e.metaKey || e.ctrlKey })
+          }
+          onAuxClick={(e) => {
+            if (e.button === 1) {
+              e.preventDefault();
+              onSelect(item.id, { newTab: true });
+            }
+          }}
           className="flex flex-1 items-start gap-1 min-w-0 text-left cursor-pointer"
         >
           <StackColumn item={item} inText={inText} />
